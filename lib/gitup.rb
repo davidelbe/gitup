@@ -38,7 +38,7 @@ class Gitup
     end
     
     # Push it!
-    self.run_gitup_commands
+    self.run_gitup_commands(current_branch)
     
     puts "Finished."
     exit
@@ -49,7 +49,14 @@ class Gitup
   end
   
   def self.current_branch
-    return `git branch`.chomp.gsub('* ', '').gsub("\n", '')
+   current = ''
+   branches = `git branch`.split("\n")
+   branches.each do |branch|
+     if (branch[0, 2] == '* ')
+       current = branch.gsub('* ', '').strip
+     end
+   end
+   current
   end
 
   # Do we have anything uncommitted in this repository?
@@ -58,6 +65,7 @@ class Gitup
   end
   
   def self.run_gitup_commands(branch)
+    puts "Branch: #{branch}"
     system "git checkout master"
     system "git merge #{branch}"
     system "git push origin master"
@@ -66,6 +74,7 @@ class Gitup
   end
   
   def self.run_gitdown_commands(branch)
+    puts "Branch: #{branch}"
     system "git checkout master"
     system "git pull origin master"
     system "git checkout #{branch}"
