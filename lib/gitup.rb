@@ -1,24 +1,33 @@
-
 class Gitup
   
-  attr_accessor :stashing
-  
   def self.gitdown!
+    
+    if on_master?
+      puts "You are on the master branch. Gitdown is intended to be used in local branches."
+      puts "git checkout -b yournewbranch to create a new local branch"
+      puts "or git checkout yourexistingbranch to checkout an existing one."
+      exit
+    end
     
     unless everything_commited?
       system "git status"
       puts "You have uncommitted changes in #{current_branch}. Do you want to try gitdown anyway? (y/n)"
       input = gets.chomp
+      
       if input.downcase == 'y'
         system "git stash"
-        self.run_gitdown_commands(current_branch)
+        run_gitdown_commands(current_branch)
         system "git stash apply"
       else
         puts "Ok... coward."
+        exit
       end
+      
     else
-      self.run_gitdown_commands(current_branch)
+      run_gitdown_commands(current_branch)
     end
+    puts "Finished."
+    exit
   end
   
   def self.gitup!
@@ -32,7 +41,11 @@ class Gitup
     self.run_gitup_commands
     
     puts "Finished."
-    
+    exit
+  end
+  
+  def self.on_master?
+    current_branch == 'master'
   end
   
   def self.current_branch
@@ -44,7 +57,7 @@ class Gitup
     `git ls-files --deleted --modified --others --exclude-standard` == ""
   end
   
-  def run_gitup_commands(branch)
+  def self.run_gitup_commands(branch)
     system "git checkout master"
     system "git merge #{branch}"
     system "git push origin master"
@@ -52,7 +65,7 @@ class Gitup
     system "git rebase master"
   end
   
-  def run_gitdown_commands(branch)
+  def self.run_gitdown_commands(branch)
     system "git checkout master"
     system "git pull origin master"
     system "git checkout #{branch}"
