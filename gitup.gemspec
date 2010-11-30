@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "bin/gitdown",
     "bin/gitup",
+    "gitup.gemspec",
     "lib/gitup.rb",
     "test/helper.rb",
     "test/test_gitup.rb"
