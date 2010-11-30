@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+puts "Running gitdown!" 
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'gitup'
+exit Gitup::gitup!(*ARGV)
