@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "gitup"
   gem.homepage = "http://github.com/standoutdavid/gitup"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "A command-line tool for handling git repositories."
+  gem.description = "Easily push and pull from remote repositories without running into conflicts."
   gem.email = "david@standout.se"
   gem.authors = ["David Svensson"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
