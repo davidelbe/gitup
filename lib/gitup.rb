@@ -66,11 +66,17 @@ class Gitup
   
   def self.run_gitup_commands(branch)
     puts "Branch: #{branch}"
-    system "git checkout master"
-    system "git merge #{branch}"
+    unless branch == 'master'
+      system "git checkout master"
+      system "git merge #{branch}"
+    end
     system "git push origin master"
-    system "git checkout #{branch}"
-    system "git rebase master"
+    unless branch == 'master'
+      system "git checkout #{branch}"
+      system "git rebase master"
+    else
+      puts "You should really consider doing development locally in a branch that is not the master branch."
+    end
   end
   
   def self.run_gitdown_commands(branch)
