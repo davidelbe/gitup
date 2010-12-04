@@ -5,24 +5,24 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gitup}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Svensson"]
-  s.date = %q{2010-11-30}
+  s.date = %q{2010-12-04}
   s.description = %q{Easily push and pull from remote repositories without running into conflicts.}
   s.email = %q{david@standout.se}
   s.executables = ["gitdown", "gitup"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.markdown"
   ]
   s.files = [
     ".document",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
-    "README.rdoc",
+    "README.markdown",
     "Rakefile",
     "VERSION",
     "bin/gitdown",
