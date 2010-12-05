@@ -6,6 +6,7 @@ class Gitup
       puts "You are on the master branch. Gitdown is intended to be used in local branches."
       puts "git checkout -b yournewbranch to create a new local branch"
       puts "or git checkout yourexistingbranch to checkout an existing one."
+      system "git pull origin master"
       exit
     end
     
@@ -34,14 +35,23 @@ class Gitup
     
     unless everything_commited?
       system "git status"
-      raise "Hold your horses! You must commit your changes first."
+      puts "Warning: You have uncommitted changes. Continue? (y/n)"
+      input = gets.chomp
+      
+      if input.downcase == 'y'
+        # Stash the changes, do the push and then apply our stash
+        system "git stash"
+        self.run_gitup_commands(current_branch)      
+        system "git stash apply"
+      else
+        puts 'Good girl.'
+        exit
+      end
+    else
+      # Push it!
+      self.run_gitup_commands(current_branch)      
+      exit
     end
-    
-    # Push it!
-    self.run_gitup_commands(current_branch)
-    
-    puts "Finished."
-    exit
   end
   
   def self.on_master?
